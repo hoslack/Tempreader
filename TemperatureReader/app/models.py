@@ -9,3 +9,5 @@ class Data(models.Model):
     time_read = models.DateTimeField()
 
 
+
+
