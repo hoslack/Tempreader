@@ -25,7 +25,7 @@ class AddData(CreateView):
     fields = ['temperature', 'time_read']
 
 
-class Data(APIView):
+class JSONData(APIView):
     def get(self, request):
         data = WeatherData.objects.all()
         serializer = DataSerializer(data, many=True)
