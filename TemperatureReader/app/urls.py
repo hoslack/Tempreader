@@ -1,11 +1,15 @@
-from django.conf.urls import url
-from django.conf.urls import include
-from django.contrib import admin
+from django.conf.urls import url, include
 from . import views
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
 
     url(r'^data/$', views.Data.as_view()),
+    url(r'^series/$', views.TimeSeriesView.as_view()),
     url(r'^display/$', views.display, name='display'),
 ]
+
+
+urlpatterns = format_suffix_patterns(urlpatterns)

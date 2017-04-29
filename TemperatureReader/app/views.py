@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import math
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Data as WeatherData
 from .serializers import DataSerializer
+from rest_pandas import PandasView, PandasScatterSerializer
+from matplotlib import style
+import matplotlib.pyplot as plt
 from datetime import datetime
 import matplotlib.pyplot as plt
 import datetime
@@ -23,9 +25,13 @@ class Data(APIView):
         jsondata = serializer.data
         return Response(jsondata)
 
-
     def post(self):
         pass
+
+
+class TimeSeriesView(PandasView):
+    queryset = WeatherData.objects.all()
+    serializer_class = DataSerializer
 
 
 def index(request):
@@ -34,6 +40,7 @@ def index(request):
 
 def display(self):
     pass
+
 
 
 
