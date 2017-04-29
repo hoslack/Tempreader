@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
 
     url(r'^data/$', views.Data.as_view()),
+    url(r'^add/$', views.AddData.as_view(), name='add-data'),
     url(r'^series/$', views.TimeSeriesView.as_view()),
     url(r'^display/$', views.display, name='display'),
 ]
