@@ -41,7 +41,6 @@ class TimeSeriesView(PandasView):
     serializer_class = DataSerializer
 
 
-
 def index(request):
     return HttpResponse("<h1>This is a good day</h1>")
 
