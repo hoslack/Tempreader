@@ -6,18 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Data as WeatherData
 from .serializers import DataSerializer
-from rest_pandas import PandasView, PandasScatterSerializer
 from .models import Data
-from matplotlib import style
-import matplotlib.pyplot as plt
-from datetime import datetime
-import matplotlib.pyplot as plt
-import datetime
-import numpy as np
-import pylab as pl
-import pandas as pd
-import plotly.plotly as py
-import plotly.graph_objs as go
+import plotly
+from plotly.graph_objs import Scatter, Layout
 
 
 class AddData(CreateView):
@@ -36,18 +27,16 @@ class JSONData(APIView):
         pass
 
 
-class TimeSeriesView(PandasView):
-    queryset = WeatherData.objects.all()
-    serializer_class = DataSerializer
-
-
 def index(request):
     return HttpResponse("<h1>This is a good day</h1>")
 
 
-def display(self):
-    pass
-
+def timeseries(request):
+    qs = WeatherData.objects.all()
+    df = qs.to_dataframe(fieldnames=['time_read', 'temperature'])
+    return HttpResponse(plotly.offline.plot({
+        "data": [Scatter(x=df['time_read'], y=df['temperature'])],
+        "layout": Layout(title="The best graph")}))
 
 
 
