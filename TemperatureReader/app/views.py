@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView
+from django.template import loader
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Data as WeatherData
@@ -9,11 +11,16 @@ from .serializers import DataSerializer
 from .models import Data
 import plotly
 from plotly.graph_objs import Scatter, Layout
+from django import forms
 
 
 class AddData(CreateView):
     model = Data
     fields = ['temperature', 'time_read']
+    widgets = {'time_read': forms.DateTimeInput}
+
+    def get_success_url(self):
+        return reverse('timeseries')
 
 
 class JSONData(APIView):
@@ -28,15 +35,18 @@ class JSONData(APIView):
 
 
 def index(request):
-    return HttpResponse("<h1>This is a good day</h1>")
+    template = loader.get_template('index.html')
+    return HttpResponse(template.render())
 
 
 def timeseries(request):
     qs = WeatherData.objects.all()
     df = qs.to_dataframe(fieldnames=['time_read', 'temperature'])
-    return HttpResponse(plotly.offline.plot({
+    plotly.offline.plot({
         "data": [Scatter(x=df['time_read'], y=df['temperature'])],
-        "layout": Layout(title="The best graph")}))
+        "layout": Layout(title="Temperature Range in Nairobi")})
+    templ = loader.get_template('temp-plot.html')
+    return HttpResponse(templ.render())
 
 
 
