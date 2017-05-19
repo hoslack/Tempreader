@@ -1,0 +1,37 @@
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+{% for field in form %}
+<form action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+<div >
+    <div>
+        {{ field.errors }}
+    </div>
+
+    <label>
+        {{ field.label_tag }}
+    </label>
+
+    <div>
+        {{ field }}
+
+    </div>
+    {% endfor%}
+    <label>Time format: YYYY-MM-DD HH:mm:SS</label>
+    <div>
+
+        <button type="submit" class="btn btn-success">Submit  </button> <span class="btn btn-warning"><a href="{% url 'index' %}" >CANCEL</a></span>
+    </div>
+</div>
+
+</form>
+
+
