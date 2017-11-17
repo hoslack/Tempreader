@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <fieldset class="jumbotron text-center">
+        <legend class="label label-primary" style="font-size:30px;" >Welcome To the Application</legend>
+   <div class="label label-info" style="font-size: 20px;"> <a href="{% url 'add-data' %}" >ADD DATA</a> </div> <hr>
+   <div class="label label-info" style="font-size: 20px;"> <a href="{% url 'timeseries' %}" >    VIEW TIMESERIES CHART</a> </div>
+        </fieldset>
+</body>
+</html>
